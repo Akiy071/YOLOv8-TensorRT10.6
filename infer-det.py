@@ -35,8 +35,8 @@ def main(args: argparse.Namespace) -> None:
         tensor = torch.asarray(tensor, device=device)
         # inference
         data = Engine(tensor)
-
         bboxes, scores, labels = det_postprocess(data)
+        
         if bboxes.numel() == 0:
             # if no bounding box
             print(f'{image}: no object!')
@@ -72,10 +72,11 @@ def main(args: argparse.Namespace) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument('--engine', type=str, help='Engine file')
-    parser.add_argument('--imgs', type=str, help='Images file')
+    parser.add_argument('--engine', type=str, default=r"D:\Desktop\\Python_Project\\pythonProject\\yolov8n.engine",help='Engine file')
+    parser.add_argument('--imgs', type=str, default="D:\Desktop\Python_Project\pythonProject\YOLOv8-TensorRT-main\data",help='Images file')
     parser.add_argument('--show',
                         action='store_true',
+                        default=True,
                         help='Show the detection results')
     parser.add_argument('--out-dir',
                         type=str,
